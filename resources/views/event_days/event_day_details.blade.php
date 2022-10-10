@@ -31,6 +31,7 @@
                             <div class="col">
                                 <p>{{$show_time->time}}</p>
                             </div>
+                            
                             <div class="col">
                                 <form method="post" action="{{url('show_times').'/'.$show_time->id}}">
                                     @csrf
@@ -38,6 +39,7 @@
                                     <input class="btn btn-link" type="submit" value="remove show time">
                                 </form>
                             </div>
+                            <hr>
                         </div>
 
                         @endforeach
@@ -61,13 +63,13 @@
                 </div>
             </div>
 
-            <p class="mt-4">Add new show time to this day</p>
+            <!-- <p class="mt-4">Add new show time to this day</p>
             <form method="post" action="{{url('show_times')}}">
                 @csrf
                 <input name="time" type="time">
                 <input name="event_day_id" hidden value="{{$event_day->id}}">
                 <input type="submit" value="add">
-            </form>
+            </form> -->
 
         </main>
     </div>

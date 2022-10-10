@@ -29,7 +29,9 @@
                                 <td>{{$attendee->name}}</td>
                                 <td>{{$attendee->email}}</td>
                                 <td>{{$attendee->phone_number}}</td>
-                                
+                                <td>
+                                <a href="{{url('attendee_details').'/'.$attendee->id}}">Details</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

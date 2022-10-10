@@ -15,6 +15,12 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">Create</button>
             </div>
 
+            @if(session()->has('warning'))
+                <div class="alert alert-warning mt-2" role="alert">
+                    {{session()->get('warning')}}
+                </div>
+            @endif
+
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -51,6 +57,7 @@
                 <div class="modal-body">
                 <form method="post" action="{{url('event_days')}}">
                     @csrf
+                    <label>Date</label>
                     <input name="date" required type="date">
 
                     <div class="modal-footer">

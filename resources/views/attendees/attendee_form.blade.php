@@ -25,44 +25,26 @@
       <h1>Register To watch a movie</h1>
       <!-- One "tab" for each step in the form: -->
       <div class="tab">
-        <p>
+        <!-- <p>
             <label for="1">Event Day</label>
-          <!-- <input
-            oninput="this.className = ''"
-            name="event_day" id="1"/> -->
             <select id="1" name="event_day_id" class="form-select" aria-label="Default select example" required>
                 <option value="null">Open this select menu</option>
                     @foreach($event_days as $event_day)
                         <option value="{{$event_day->id}}">{{$event_day->date}}</option>
                     @endforeach
             </select>
-        </p>
+        </p> -->
         <p>
-            <label for="2">Show Time</label>
-          <!-- <input
-            oninput="this.className = ''"
-            name="shpw_time" id="2"
-          /> -->
+          <label for="2">Show Time</label>
           <select id="2" name="show_time_id" class="form-select" aria-label="Default select example" required>
             <option value="null">Open this select menu</option>
                 @foreach($show_times as $show_time)
-                    <option value="{{$show_time->id}}">{{$show_time->time}}</option>
+                    <option value="{{$show_time->id}}">{{ $show_time->event_day->date}} .. {{$show_time->time}}</option>
+                    
                 @endforeach
         </select>
         </p>
-        <p>
-            <label for="3">Movies</label>
-          <!-- <input
-            oninput="this.className = ''"
-            name="movie" id="3"
-          /> -->
-          <select id="3" name="movie" class="form-select" aria-label="Default select example" required>
-            <option value="null">Open this select menu</option>
-                @foreach($movies as $movie)
-                    <option value="{{$movie->id}}">{{$movie->title}}</option>
-                @endforeach
-        </select>
-        </p>
+   
       </div>
       <div class="tab">
         <p>

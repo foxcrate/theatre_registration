@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EventDay;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class EventDayController extends Controller
 {
@@ -39,6 +40,16 @@ class EventDayController extends Controller
     public function store(Request $request)
     {
         $new_event_day = EventDay::create(['date'=>$request->date]);
+
+        $after_week = Carbon::now();
+        $after_week->addWeeks(1);
+
+        $new_event_date = Carbon::create($new_event_day->date);
+        // return $show_time_date;
+        if( $new_event_date->gt($after_week) ){
+            return redirect()->back()->with('warning', "You can't register an event more than a week from now..");
+        }
+
         return redirect()->back();
     }
 

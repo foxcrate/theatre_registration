@@ -22,6 +22,7 @@
                             <th>Time</th>
                             <th>Event Day</th>
                             <th>Movie</th>
+                            <th>Attendee</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +30,12 @@
                             <tr>
                                 <td>{{$show_time->time}}</td>
                                 <td>{{$show_time->event_day->date}}</td>
+                                @if($show_time->movie)
                                 <td>{{$show_time->movie->title}}</td>
+                                @else
+                                <td>No Movie</td>
+                                @endif
+                                <td>{{ count($show_time->attendees) }}</td>
                                 <td>
                                     <a  class="btn btn-primary" href="{{url('show_times').'/'.$show_time->id.'/'.'edit'}}">Edit</a>
                                 </td>
@@ -41,6 +47,7 @@
                                         
                                     </form>
                                 </td>
+                                
                             </tr>
                         @endforeach
                     </tbody>
@@ -60,6 +67,7 @@
                 <div class="modal-body">
                 <form method="post" action="{{url('show_times')}}">
                     @csrf
+                    <label>Time</label>
                     <input name="time" required type="time">
 
                     <label>Event Day</label>

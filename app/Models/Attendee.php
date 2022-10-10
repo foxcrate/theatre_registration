@@ -11,9 +11,9 @@ class Attendee extends Model
 
     protected $fillable = ['name','email','phone_number'];
 
-    public function movies()
+    public function show_times()
     {
-        return $this->belongsToMany('App\Models\Movie','attendee_movies');
+        return $this->belongsToMany('App\Models\ShowTime','attendee_show_times');
     }
     
 }

@@ -8,54 +8,83 @@ use App\Models\ShowTime;
 use App\Models\EventDay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class AttendeeController extends Controller
 {
     public function post_attend(Request $request)
     {
-        $request->validate([
+        // return "a;o";
+        // $request->validate([
+        //     'name' => 'required|min:4|max:255',
+        //     'email' => 'required|email|unique:attendees',
+        //     'phone_number' => 'required|numeric|min:10',
+        // ]);
+
+        // // return $validator;
+        // if ($validator->fails()) {
+            
+        //     return "Alo";
+        // }
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|min:4|max:255',
             'email' => 'required|email|unique:attendees',
-            'phone_number' => 'required|numeric|min:10',
+            'phone_number' => 'required|min:10|unique:attendees',
         ]);
 
-        // return $request;
+        $show_time = ShowTime::find($request->show_time_id);
+
+        if ($validator->fails()) {
+            $the_movie = $show_time->movie;
+
+            $show_times = $the_movie->show_times;
+            $event_days = $the_movie->event_days();
+
+            $all_movies = Movie::All();
+    
+            // return view('attendees.attendee_form',['show_times'=>$show_times,'event_days'=>$event_days, 'errors'=>$validator->errors()]);
+
+            // return view('landing',['movies'=>$all_movies, 'errors'=>$validator->errors()]);
+            return redirect()->route('landing')->with(['movies'=>$all_movies, 'errors'=>$validator->errors()]);
+        }
 
         error_log('the request: '. $request);
 
         $new_attendee = Attendee::create(['name'=>$request->name,'email'=>$request->email,'phone_number'=>$request->phone_number]);
 
-        $chosen_movie = Movie::find($request->movie_id);
+        // get the movie from show time then attach the movie to attendee
+        
+        $show_time = ShowTime::find($request->show_time_id);
+        // $chosen_movie = $show_time->movie;
 
-        $new_attendee->movies->attach();
+        $new_attendee->show_times()->attach($show_time);
 
-        return redirect()->back()->with('success', 'You registered successfully ..');
+        $new_attendee->save();
 
-        // $aa = Attendee::find(2);
-        // $mm = Movie::find(4);
-        // $mm->attendees()->attach($aa);
-
-        // return $mm->attendees;
-
-
-        // return Redirect::back()->withErrors($validator);
-        // return redirect()->back()->with('success', 'You registered successfully ..');
-        // return Redirect::back()->withErrors($validator);
+        return redirect()->route('landing')->with('success', 'You registered successfully ..');
+        // return view('landing',['movies'=>$all_movies, 'errors'=>$validator->errors()]);
 
     }
 
-    public function get_attend(Request $request){
+    public function get_registration_for_movie(Request $request){
 
-        $movies = Movie::All();
-        $show_times = ShowTime::All();
-        $event_days = EventDay::All();
+        $the_movie = Movie::find($request->movie_id);
 
-        return view('attendees.attendee_form',['movies'=>$movies,'show_times'=>$show_times,'event_days'=>$event_days]);
+        $show_times = $the_movie->show_times;
+        $event_days = $the_movie->event_days();
+
+        return view('attendees.attendee_form',['show_times'=>$show_times,'event_days'=>$event_days]);
     }
 
     public function all_attendees(Request $request){
         $attendees = Attendee::All();
         return view('attendees.all_attendees',['attendees'=>$attendees]);
+    }
+
+    public function attendee_details($id){
+        $attendee = Attendee::find($id);
+        return view('attendees.attendee_details',['attendee'=>$attendee]);
     }
 
 }

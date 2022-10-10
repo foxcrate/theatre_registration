@@ -38,9 +38,10 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        $new_movie = Movie::create(['title'=>$req->title,'ticket_cost'=>$req->ticket_cost]);
+        return redirect()->back();
     }
 
     /**
@@ -62,7 +63,8 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+
+        return view('movies.edit_movie',['movie'=>$movie]);
     }
 
     /**
@@ -72,9 +74,14 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(Request $req, Movie $movie)
     {
-        //
+          // return "update()";
+          $movie->title = $req->title;
+          $movie->ticket_cost = $req->ticket_cost;
+          $movie->save();
+          
+          return redirect()->route('movies.index');
     }
 
     /**
@@ -85,6 +92,7 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return redirect()->back();
     }
 }

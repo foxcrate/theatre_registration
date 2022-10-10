@@ -18,7 +18,12 @@ class ShowTime extends Model
 
     public function movie()
     {
-        return $this->hasOne('App\Models\Movie');
+        return $this->belongsTo('App\Models\Movie');
+    }
+
+    public function attendees()
+    {
+        return $this->belongsToMany('App\Models\Attendee','attendee_show_times');
     }
 
 }

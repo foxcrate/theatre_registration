@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('movies', function (Blueprint $table) {
+        Schema::create('attendee_show_times', function (Blueprint $table) {
+            $table->id();
 
+            $table->bigInteger('attendee_id')->unsigned();
             $table->bigInteger('show_time_id')->unsigned();
 
+            $table->foreign('attendee_id')->references('id')->on('attendees')->onDelete('cascade');
             $table->foreign('show_time_id')->references('id')->on('show_times')->onDelete('cascade');
 
+            $table->timestamps();
         });
     }
 
@@ -29,8 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('movies', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('attendee_show_times');
     }
 };

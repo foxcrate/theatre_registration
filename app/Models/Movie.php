@@ -11,14 +11,21 @@ class Movie extends Model
 
     public $fillable = ['title','ticket_cost','show_time_id'];
 
-    public function attendees()
+    public function show_times()
     {
-        return $this->belongsToMany('App\Models\Attendee','attendee_movies');
+        return $this->hasMany('App\Models\ShowTime');
     }
 
-    public function show_time()
+    public function event_days()
     {
-        return $this->belongsTo('App\Models\ShowTime');
+        $movie_show_times = $this->show_times;
+        $movie_event_days = [];
+
+        foreach ($movie_show_times as $show_time) {
+            array_push( $movie_event_days , $show_time->event_day );
+        }
+
+        return $movie_event_days;
     }
 
 }

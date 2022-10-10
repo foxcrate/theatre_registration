@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Movie;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\EventDayController;
 use App\Http\Controllers\ShowTimeController;
 use App\Http\Controllers\AttendeeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,24 +21,27 @@ use App\Http\Controllers\AttendeeController;
 */
 
 Route::get('/', function () {
-    return view('landing');
-});
+    $all_movies = Movie::All();
 
-Route::get('/get_attend', [AttendeeController::class, 'get_attend']);
+    return view('landing',['movies'=>$all_movies]);
+})->name('landing');
+
+Route::post('/get_registration_for_movie', [AttendeeController::class, 'get_registration_for_movie']);
+
 
 Route::post('/post_attend', [AttendeeController::class, 'post_attend'])->name('post_attend');
 
 Auth::routes();
 
-// Student Closed Routes //
+// Admin Closed Routes //
 Route::group(['middleware' => 'auth'], function () {
 
-    // Route::post('/update_event_day/{event_day_id}', [EventDayController::class, 'update'])->name('update_event_day');
+    Route::get('/attendee_details/{id}', [AttendeeController::class, 'attendee_details']);
+
     Route::resource('event_days', EventDayController::class);
 
     Route::resource('show_times', ShowTimeController::class);
 
-    // Route::get('/movies', [MovieController::class, 'index'])->name('movies');
     Route::resource('movies', MovieController::class);
 
     Route::get('/all_attendees', [AttendeeController::class, 'all_attendees']);

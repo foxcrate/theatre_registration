@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('show_times', function (Blueprint $table) {
-            $table->id();
-
-            $table->bigInteger('event_day_id')->unsigned();
-
-            $table->foreign('event_day_id')->references('id')->on('event_days')->onDelete('cascade');
-
-            $table->timestamps();
+        Schema::table('show_times', function (Blueprint $table) {
+            $table->time('from');
+            $table->time('to');
         });
     }
 
@@ -31,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('show_times');
+        Schema::table('show_times', function (Blueprint $table) {
+            //
+        });
     }
 };

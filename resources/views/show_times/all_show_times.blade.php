@@ -25,7 +25,8 @@
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Time</th>
+                            <th>From</th>
+                            <th>To</th>
                             <th>Event Day</th>
                             <th>Movie</th>
                             <th>Attendee</th>
@@ -34,7 +35,8 @@
                     <tbody>
                         @foreach($show_times as $show_time)
                             <tr>
-                                <td>{{$show_time->time}}</td>
+                                <td>{{$show_time->from}}</td>
+                                <td>{{$show_time->to}}</td>
                                 <td>{{$show_time->event_day->date}}</td>
                                 @if($show_time->movie)
                                 <td>{{$show_time->movie->title}}</td>
@@ -73,8 +75,11 @@
                 <div class="modal-body">
                 <form method="post" action="{{url('show_times')}}">
                     @csrf
-                    <label>Time</label>
-                    <input name="time" required type="time">
+                    <label>From</label>
+                    <input name="from" required type="time">
+
+                    <label>To</label>
+                    <input name="to" required type="time">
 
                     <label>Event Day</label>
                     <select id="1" name="event_day_id" class="form-select" aria-label="Default select example" required>

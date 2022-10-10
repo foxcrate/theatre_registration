@@ -76,7 +76,6 @@ class MovieController extends Controller
      */
     public function update(Request $req, Movie $movie)
     {
-          // return "update()";
           $movie->title = $req->title;
           $movie->ticket_cost = $req->ticket_cost;
           $movie->save();

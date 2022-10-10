@@ -23,17 +23,7 @@
     <form method ="post" id="regForm" action="{{ route('post_attend') }}">
         @csrf
       <h1>Register To watch a movie</h1>
-      <!-- One "tab" for each step in the form: -->
       <div class="tab">
-        <!-- <p>
-            <label for="1">Event Day</label>
-            <select id="1" name="event_day_id" class="form-select" aria-label="Default select example" required>
-                <option value="null">Open this select menu</option>
-                    @foreach($event_days as $event_day)
-                        <option value="{{$event_day->id}}">{{$event_day->date}}</option>
-                    @endforeach
-            </select>
-        </p> -->
         <p>
           <label for="2">Show Time</label>
           <select id="2" name="show_time_id" class="form-select" aria-label="Default select example" required>
@@ -54,8 +44,6 @@
           />
         </p>
         <p>
-            <!-- placeholder="Phone..."
-            oninput="this.className = ''" -->
             <label for="9">Email</label>
           <input id="9"
             type="email"

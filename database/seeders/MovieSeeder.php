@@ -17,12 +17,14 @@ class MovieSeeder extends Seeder
     {
         DB::table('movies')->insert([
             'title'=>'superman',
-            'ticket_cost'=>110
+            'ticket_cost'=>110,
+            'created_at'=>'2022-10-10'
         ]);
 
         DB::table('movies')->insert([
             'title'=>'avengers',
-            'ticket_cost'=>150
+            'ticket_cost'=>150,
+            'created_at'=>'2022-10-10'
         ]);
     }
 }

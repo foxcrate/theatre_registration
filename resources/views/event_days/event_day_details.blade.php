@@ -14,10 +14,18 @@
                 <!-- <h2>Event Details</h2> -->
             </div>
 
+        
+
             <div class="card text-center">
                 <div class="card-header">
                     Event Day Details
                 </div>
+
+                @if(session()->has('warning'))
+                    <div class="alert alert-warning mt-2" role="alert">
+                        {{session()->get('warning')}}
+                    </div>
+                @endif
                 <div class="card-body">
                     <div>
                     <label>Date</label>
@@ -29,7 +37,8 @@
                         @foreach ($event_day->show_times as $show_time)
                         <div class="row">
                             <div class="col">
-                                <p>{{$show_time->time}}</p>
+                                <p>from: {{$show_time->from}}</p>
+                                <p>to: {{$show_time->from}}</p>
                             </div>
                             
                             <div class="col">
@@ -50,7 +59,6 @@
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <!-- <a href="#" class="btn btn-primary">Edit</a> -->
                     <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Edit Event Day
                     </button>
@@ -63,21 +71,8 @@
                 </div>
             </div>
 
-            <!-- <p class="mt-4">Add new show time to this day</p>
-            <form method="post" action="{{url('show_times')}}">
-                @csrf
-                <input name="time" type="time">
-                <input name="event_day_id" hidden value="{{$event_day->id}}">
-                <input type="submit" value="add">
-            </form> -->
-
         </main>
     </div>
-
-        <!-- Button trigger modal -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button> -->
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -92,29 +87,6 @@
                     @csrf
                     @method('PUT')  
                     <input id="event_day_date1" name="date" value="{{ date('Y-m-d', strtotime($event_day->date)) }}" type="date">
-
-                    <!-- <label>Edit Show Times</label>
-                        @foreach ($event_day->show_times as $show_time)
-                            <div class='row'>
-                                <div class="col-4">
-                                    <h5 id ="1" class="card-title">{{$show_time->time}}</h5>
-                                </div>
-                                <div class="col-4 mt-1">
-                                    <form method="post" action="{{url('event_days').'/'.$event_day->id}}">
-                                        @csrf
-                                        @method('DELETE')
-                                        
-                                    </form>
-
-                                    
-                                </div>
-
-                            </div>
-                        @endforeach
-                        @if(count($event_day->show_times) == 0)
-                            <p>No Show Times</p>
-                        @endif
-                    </div> -->
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

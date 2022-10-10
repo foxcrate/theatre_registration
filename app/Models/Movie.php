@@ -9,7 +9,7 @@ class Movie extends Model
 {
     use HasFactory;
 
-    public $fillable = ['title','ticket_cost','show_time_id'];
+    public $fillable = ['title','ticket_cost','show_time_id','created_at'];
 
     public function show_times()
     {

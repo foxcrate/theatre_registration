@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\Validator;
 
 class AttendeeController extends Controller
 {
+
+    public function landing(Request $request){
+        $all_movies = Movie::All();
+
+        $available_movies = [];
+
+        foreach( $all_movies as $movie ){
+            if( count($movie->show_times) > 0 ){
+                array_push( $available_movies , $movie );
+            }
+        }
+
+        return view('landing',['movies'=>$available_movies]);
+    }
+
     public function post_attend(Request $request)
     {
         // return "a;o";

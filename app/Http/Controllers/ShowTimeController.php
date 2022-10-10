@@ -17,16 +17,10 @@ class ShowTimeController extends Controller
 
     public function index()
     {
-        // $s = ShowTime::find(7);
-        // $m = Movie::find(1);
-        // return $m->show_time;
-
-        error_log('index() in ShowTimeController');
-
+        // error_log('index() in ShowTimeController');
         $show_times = ShowTime::All();
         $event_days = EventDay::All();
         $movies = Movie::All();
-        // return $show_times[0]->event_day;
         return view('show_times.all_show_times',['show_times'=>$show_times,'event_days'=>$event_days,'movies'=>$movies]);
 
     }
@@ -53,10 +47,7 @@ class ShowTimeController extends Controller
         if( count($event_day->show_times) >= 3 ){
             return redirect()->back()->with('warning','Max number of show times per one day is 3');
         }
-        $new_show_time = ShowTime::create(['time'=>$req->time,'event_day_id'=>$req->event_day_id,'movie_id'=>$req->movie_id]);
-        // $movie = Movie::find($req->movie_id);
-        // $new_show_time->movie_id = $movie->id;
-        // $new_show_time->save();
+        $new_show_time = ShowTime::create(['event_day_id'=>$req->event_day_id,'from'=>$req->from,'to'=>$req->to,'movie_id'=>$req->movie_id]);
         return redirect()->back();
     }
 
@@ -93,15 +84,12 @@ class ShowTimeController extends Controller
      */
     public function update(Request $req, ShowTime $show_time)
     {
-        // return "update()";
-        $show_time->time = $req->time;
+        $show_time->from = $req->from;
+        $show_time->to = $req->to;
 
         $show_time->event_day_id = $req->event_day_id;
         $movie = Movie::find($req->movie_id);
         $show_time->movie_id = $movie->id;
-        // $movie->show_time_id = $show_time->id;
-        // $movie->save();
-        // $show_time->movie = $req->movie;
         $show_time->save();
         return redirect()->route('show_times.index');
     }

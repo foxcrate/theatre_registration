@@ -15,8 +15,6 @@ class EventDayController extends Controller
      */
     public function index()
     {
-        // error_log('Some message here.');
-
         $event_days = EventDay::All();
         return view('event_days.all_event_days',['event_days'=>$event_days]);
     }
@@ -45,7 +43,6 @@ class EventDayController extends Controller
         $after_week->addWeeks(1);
 
         $new_event_date = Carbon::create($new_event_day->date);
-        // return $show_time_date;
         if( $new_event_date->gt($after_week) ){
             return redirect()->back()->with('warning', "You can't register an event more than a week from now..");
         }
@@ -61,7 +58,6 @@ class EventDayController extends Controller
      */
     public function show(EventDay $event_day)
     {
-        // $the_event_day = EventDay::find()
         return view('event_days.event_day_details',['event_day'=>$event_day]);
     }
 

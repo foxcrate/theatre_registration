@@ -29,7 +29,6 @@
 
             <div class="row mt-4">
                 <div class="col-4">
-                    <!-- <a class="btn btn-primary" href="{{url('/get_attend')}}">Attend a Movie</a> -->
                     <h4>Pick A Movie To Watch</h4> 
                     <form method="post" action="{{url('get_registration_for_movie')}}">
                         @csrf
@@ -40,7 +39,6 @@
                                 @endforeach
                         </select>
                         <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                             <button type="submit" class="btn btn-primary">Attend</button>
                         </div>
                         

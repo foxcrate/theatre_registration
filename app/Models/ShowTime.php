@@ -9,7 +9,7 @@ class ShowTime extends Model
 {
     use HasFactory;
 
-    public $fillable = ['time','event_day_id','movie_id'];
+    public $fillable = ['movie_id','event_day_id','from','to'];
 
     public function event_day()
     {

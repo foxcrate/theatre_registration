@@ -20,24 +20,8 @@ use App\Http\Controllers\AttendeeController;
 |
 */
 
-Route::get('/', function () {
-    $all_movies = Movie::All();
-
-    $available_movies = [];
-
-    foreach( $all_movies as $movie ){
-        if( count($movie->show_times) > 0 ){
-            array_push( $available_movies , $movie );
-        }
-    }
-
-    // return $available_movies;
-    return view('landing',['movies'=>$available_movies]);
-})->name('landing');
-
+Route::get('/', [AttendeeController::class, 'landing'] )->name('landing');
 Route::post('/get_registration_for_movie', [AttendeeController::class, 'get_registration_for_movie']);
-
-
 Route::post('/post_attend', [AttendeeController::class, 'post_attend'])->name('post_attend');
 
 Auth::routes();
@@ -56,5 +40,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/all_attendees', [AttendeeController::class, 'all_attendees']);
     
 });
-
-// Route::get('/home', [HomeController::class, 'index'])->name('home');

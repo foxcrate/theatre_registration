@@ -23,7 +23,16 @@ use App\Http\Controllers\AttendeeController;
 Route::get('/', function () {
     $all_movies = Movie::All();
 
-    return view('landing',['movies'=>$all_movies]);
+    $available_movies = [];
+
+    foreach( $all_movies as $movie ){
+        if( count($movie->show_times) > 0 ){
+            array_push( $available_movies , $movie );
+        }
+    }
+
+    // return $available_movies;
+    return view('landing',['movies'=>$available_movies]);
 })->name('landing');
 
 Route::post('/get_registration_for_movie', [AttendeeController::class, 'get_registration_for_movie']);

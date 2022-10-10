@@ -98,6 +98,11 @@ class EventDayController extends Controller
      */
     public function destroy(EventDay $event_day)
     {
+        $event_day_show_times = $event_day->show_times;
+        foreach( $event_day_show_times as $show_time ){
+            $show_time->delete();
+        }
+
         $event_day->delete();
         return redirect()->route('event_days.index');
     }

@@ -49,10 +49,14 @@ class ShowTimeController extends Controller
      */
     public function store(Request $req)
     {
-        $new_show_time = ShowTime::create(['time'=>$req->time,'event_day_id'=>$req->event_day_id]);
-        $movie = Movie::find($req->movie_id);
-        $new_show_time->movie_id = $movie->id;
-        $new_show_time->save();
+        $event_day = EventDay::find($req->event_day_id);
+        if( count($event_day->show_times) >= 3 ){
+            return redirect()->back()->with('warning','Max number of show times per one day is 3');
+        }
+        $new_show_time = ShowTime::create(['time'=>$req->time,'event_day_id'=>$req->event_day_id,'movie_id'=>$req->movie_id]);
+        // $movie = Movie::find($req->movie_id);
+        // $new_show_time->movie_id = $movie->id;
+        // $new_show_time->save();
         return redirect()->back();
     }
 

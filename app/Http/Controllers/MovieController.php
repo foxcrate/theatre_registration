@@ -92,6 +92,12 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
+        $movie_show_times = $movie->show_times;
+
+        foreach( $movie_show_times as $show_time ){
+            $show_time->delete();
+        }
+
         $movie->delete();
         return redirect()->back();
     }

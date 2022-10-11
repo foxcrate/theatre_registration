@@ -88,8 +88,8 @@ class ShowTimeController extends Controller
         $show_time->to = $req->to;
 
         $show_time->event_day_id = $req->event_day_id;
-        $movie = Movie::find($req->movie_id);
-        $show_time->movie_id = $movie->id;
+        // $movie = Movie::find($req->movie_id);
+        $show_time->movie_id = $req->movie_id;
         $show_time->save();
         return redirect()->route('show_times.index');
     }

@@ -15,7 +15,7 @@ class MovieController extends Controller
 
     public function index()
     {
-        error_log('index() in MovieController');
+        // error_log('index() in MovieController');
 
         $movies = Movie::All();
         return view('movies.all_movies',['movies'=>$movies]);

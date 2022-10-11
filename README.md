@@ -42,7 +42,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
-<p>5. install nodeJS packes which is used in some parts of authentication. (please use a newer nodeJS version like: v16)</p>
+<p>5. install nodeJS packes which is used in some parts of authentication. (please use a newer nodeJS version)</p>
 
 ```
 npm install
